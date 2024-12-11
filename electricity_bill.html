@@ -1,0 +1,52 @@
+<?php
+// Initialize variables and error messages
+$kWh = $bill = "";
+$kWh_err = "";
+
+// Define the tariff (rate per kWh)
+$tariff = 0.12; // Example tariff: 0.12 USD per kWh
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // Validate electricity usage (kWh)
+    if (empty(trim($_POST["kWh"])) || !is_numeric($_POST["kWh"]) || $_POST["kWh"] <= 0) {
+        $kWh_err = "Please enter a valid number for electricity usage (positive value).";
+    } else {
+        $kWh = trim($_POST["kWh"]);
+        // Calculate the bill
+        $bill = $kWh * $tariff;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculation</title>
+</head>
+<body>
+    <h2>Electricity Bill Calculator</h2>
+    
+    <form action="" method="POST">
+        <label for="kWh">Electricity Usage (in kWh):</label>
+        <input type="text" name="kWh" id="kWh" value="<?php echo htmlspecialchars($kWh); ?>" required>
+        <span style="color: red;"><?php echo $kWh_err; ?></span>
+        <br><br>
+
+        <input type="submit" value="Calculate Bill">
+    </form>
+
+   <?php
+    // If the form is submitted, there are no errors, and a bill is calculated, display the bill
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($kWh_err) && isset($bill)) {
+        echo "<h3>Your electricity bill is: $" . number_format($bill, 2) . "</h3>";
+    }
+?>
+
+
+</body>
+</html>
+
