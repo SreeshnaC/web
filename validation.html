@@ -1,0 +1,82 @@
+<html>
+<head>
+<title> FORM </title>
+</head>
+<body bgcolor="green">
+<h1 align="centre"> FORM VALIDATION </h1>
+<centre>
+<form name="form"action=""method="POST"onsubmit="return validate_form()">
+<table>
+<tr>
+<td> name</td>
+<td>
+<input type="text"name="name">
+</td>
+</tr>
+<tr>
+<td> Email </td>
+<td><input type="email"name="email"></td>
+</tr>
+<tr>
+<td> Mobile Number</td>
+<td><input type="del"name="mobile"></td>
+</tr>
+<tr>
+<td>Username</td>
+<td><input type="text"name="user"></td>
+</tr>
+<tr>
+<td>password</td>
+<td><input type="password"name="password"</td>
+</tr>
+<tr>
+<td><input type="reset"value="reset"></td>
+<td colspan="2"><input type="submit"value="submit"></td>
+</tr>
+</table>
+</form>
+</centre>
+<script type="text/javascript">
+function validate_form() {
+var name=document.form.name.value;
+var email=document.form.email.value;
+var mobile=document.form.mobile.value;
+var user=document.form.user.value;
+var password=document.form.password.value;
+var re=/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+var ren=/[0-9!@#$%^&*]/
+if(name==""){
+alert("Enter name");
+document.form.name.focus();
+return false;
+} else if(ren.test(name)){
+alert("enter valid name");
+document.form.name.focus();}
+if(email==""){
+alert("enter email");
+document.form.email.focus();
+return false;
+}
+if(mobile==""){
+alert("Enter number with 10 digit");
+return false;
+}
+else if (isNaN(mobile)){
+alert("Enter valid mobile number");
+return false;
+}
+if(user==""){
+alert("Enter user name");
+document.form.user.focus();
+return false;
+}
+if(password==""||password.length<8||!re.test(password)){
+alert("Enter minimum 8 characters and digits!!"+"atleast one lowercase and uppercase & digit & special character must be included");
+document.form.password.focus();
+return false;
+}
+alert("Form has been submitted");
+}
+</script>
+</body>
+</html>
